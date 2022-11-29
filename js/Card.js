@@ -2,35 +2,9 @@ class Card {
   constructor(container, popupImage) { 
     this.container = container;
     this.popupImage = popupImage;
-    // Надо исправить : Нельзя вызывать или создавать реализацию в конструторе класса
-    // Вызывая реализацию в конструторе класса, при наследовании, вы не сможите вызвать другой метод не вызвав реализацию в конструкторе
-    // Если Вам необходимо будет вызвать конструктор родителя при наследовании в одном из классов
-    // так же, вы заведомо делаете класс не тестируемым, так как всегда при инициализации будет вызываться конструктор класса
-
-    //RA404: Перенес в метод create
-
   }
 
   create(name, link) {
-    /*  Можно лучше: 
-    *  Альтернативный способ создания карточки. При нем не требуется создавать вручную все
-    * Вы можете реализовать функцию, которая сразу же возвращает “кусок” разметки. Это решает проблему постоянного createElement DOM-элементов. 
-     function getTemplate(data){ 
-       const template = `<div class="place-card"> 
-                   <div class="place-card__image" style="background: url(${data.link})"> 
-                     <button class="place-card__delete-icon"></button>
-                   </div>
-                   <div class="place-card__description">
-                     <h3 class="place-card__name">${data.name}</h3>
-                     <button class="place-card__like-icon"></button>
-                   </div>
-                 </div>`
-     return template;
-     } 
-    *  Этот кусок разметки в дальнейшем можно вставить в DOM, воспользовавшись методом insertAdjacentHTML().
-    *  https: //developer.mozilla.org/ru/docs/Web/API/Element/insertAdjacentHTML
-    *    pointElement.insertAdjacentHTML('afterend', getTemplate(data));
-    */
     const cardContainer = document.createElement('div');
     const cardImageElement = document.createElement('div');
     const delButtonElement = document.createElement('button');
@@ -81,7 +55,6 @@ class Card {
   showFullSizeImage(event) {
     let pictureLink = event.target.style.backgroundImage;
     if (pictureLink) {
-      //RA404:Исправил
       this.popupImage.setImage(pictureLink.replace(/\(|\)|\"|url/gi, ''));
       this.popupImage.openClosePopup();      
     }
